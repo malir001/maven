@@ -1,0 +1,61 @@
+pipeline
+{
+    agent any
+    stages
+    {
+        stage('ContinuousDownload')
+        {
+            steps
+            {
+            git 'https://github.com/AndriyKalashnykov/tomcat-root-war.git'
+            }
+        }
+    
+        
+        stage('ContinuousBuild')
+        {
+            steps
+            {
+            sh 'mvn package'
+            }
+        }
+        
+        stage('ContinuousDeployment')
+        {
+            steps
+            {
+           deploy adapters: [tomcat9(credentialsId: 'c124071b-4d97-459a-944f-73658d5ee52a', path: '', url: 'http://172.31.31.246:8080')], contextPath: 'testapp', war: '**/*.war'
+           
+                
+            }
+        }
+        
+        
+        stage('ContinuousTesting')
+        {
+            steps
+            {
+          
+          git 'https://github.com/intelliqittrainings/FunctionalTesting.git'
+          sh 'java -jar /var/lib/jenkins/workspace/DeclarativePipeline/testing.jar'
+          
+            }
+        }
+        
+          stage('ContinuouDelivery')
+        {
+            steps
+            {
+            input message: 'Need approval of DM for Prod Deployment ', submitter: 'Ram'
+            deploy adapters: [tomcat9(credentialsId: 'c124071b-4d97-459a-944f-73658d5ee52a', path: '', url: 'http://172.31.21.26:8080')], contextPath: 'prodapp', war: '**/*.war'
+            }
+        }
+        
+        
+        
+        
+        
+       
+        
+    }
+}
