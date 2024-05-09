@@ -7,7 +7,7 @@ pipeline
         {
             steps
             {
-            git 'https://github.com/AndriyKalashnykov/tomcat-root-war.git'
+            git 'https://github.com/malir001/maven.git'
             }
         }
     
@@ -36,7 +36,7 @@ pipeline
             steps
             {
           
-          git 'https://github.com/intelliqittrainings/FunctionalTesting.git'
+          git 'https://github.com/malir001/Testing.git'
           sh 'java -jar /var/lib/jenkins/workspace/DeclarativePipeline/testing.jar'
           
             }
