@@ -11,7 +11,7 @@ pipeline
             }
         }
     
-        /*
+        
         stage('ContinuousBuild')
         {
             steps
@@ -20,7 +20,7 @@ pipeline
             }
         }
         
-        stage('ContinuousDeployment')
+        /*stage('ContinuousDeployment')
         {
             steps
             {*/
